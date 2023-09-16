@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { FileVideo, Github, Upload, Wand2 } from "lucide-react";
+import { Github, Wand2 } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 
 import { Separator } from "@/components/ui/separator";
+import { VideoInputForm } from "./components/video-input-form";
 export function App() {
   return (
     <div className="min-h-screen flex flex-col">
@@ -50,36 +51,7 @@ export function App() {
         </div>
         {/* espaçamento entre os elementos, apenas funciona para display flex ou block */}
         <aside className="w-80 space-y-6">
-          <form action="" className="form-y-6">
-            <label
-              htmlFor="video"
-              className="border flex  rounded-md aspect-video cursor-pointer border-dashed text-sm flex-col gap-4 items-center justify-center text-muted-foreground hover:bg-primary/5"
-            >
-              <FileVideo className="w-4 h-4" />
-              Selecione um vídeo
-            </label>
-            {/* prop sr-only remove o input visualmente da tela , mas o mantém dentro da DOM */}
-            <input
-              type="file"
-              id="video"
-              accept="video/mp4"
-              className="sr-only"
-            />
-            <Separator />
-            <div className="space-y-2">
-              <Label htmlFor="transcription_prompt">
-                Prompt de Transcrição
-              </Label>
-              <Textarea
-                id="transcription_prompt"
-                placeholder="Inclua palavras-chave mencionadas no vídeo separadas por vírgula (,)"
-                className="h-20 leading-relaxed resize-none"
-              />
-            </div>
-            <Button type="submit" className="w-full">
-              Carregar Vídeo <Upload className="w-4 h-4 ml-2"></Upload>
-            </Button>
-          </form>
+          <VideoInputForm />
           <form action="" className="space-y-6">
             <div className="space-y-2">
               <Label>Prompt</Label>
