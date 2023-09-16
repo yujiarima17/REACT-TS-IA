@@ -8,9 +8,16 @@ import { getFFmpeg } from "@/lib/ffmepg";
 import { api } from "@/lib/axios";
 
 type Status = "waiting" | "converting" | "uploading" | "generating" | "success";
+
+const statusMessage = {
+  converting: "Convertendo",
+  generating: "Transcrevendo",
+  uploading: "Carregando",
+  success: "Sucesso!",
+};
 export function VideoInputForm() {
   const promptInputRef = useRef<HTMLTextAreaElement>(null);
-  const [status, setStatus] = useState("waiting");
+  const [status, setStatus] = useState<Status>("waiting");
   const [videoFile, setVideoFile] = useState<File | null>(null);
 
   function handleFileSelected(event: ChangeEvent<HTMLInputElement>) {
@@ -133,8 +140,20 @@ export function VideoInputForm() {
           className="h-20 leading-relaxed resize-none"
         />
       </div>
-      <Button type="submit" className="w-full" disabled={status != "waiting"}>
-        Carregar Vídeo <Upload className="w-4 h-4 ml-2"></Upload>
+      <Button
+        data-success={status === "success"}
+        type="submit"
+        className="w-full data-[success]:bg-emerald-400"
+        disabled={status != "waiting"}
+      >
+        {status === "waiting" ? (
+          <>
+            Carregar Vídeo
+            <Upload className="w-4 h-4 ml-2"></Upload>
+          </>
+        ) : (
+          statusMessage[status]
+        )}
       </Button>
     </form>
   );

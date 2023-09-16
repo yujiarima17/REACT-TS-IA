@@ -3,18 +3,18 @@ import { Github, Wand2 } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 import { Separator } from "@/components/ui/separator";
 import { VideoInputForm } from "./components/video-input-form";
+import { PromptSelect } from "./components/prompt-select";
+import { useState } from "react";
+
 export function App() {
+  const [temperature, setTemperature] = useState(0.5);
+
+  function handlePromptSelected(template: string) {
+    console.log(template);
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <div className="px-6 py-3 flex items-center justify-between border-b">
@@ -55,22 +55,18 @@ export function App() {
           <form action="" className="space-y-6">
             <div className="space-y-2">
               <Label>Prompt</Label>
-              <Select defaultValue="gpt3.5" disabled>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione um prompt..." />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="title"> Título do YouTube</SelectItem>
-                  <SelectItem value="description">
-                    Descrição do YouTube
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <PromptSelect onPromptSelected={handlePromptSelected} />
             </div>
             <Separator />
             <div className="space-y-4">
               <Label>Temperatura</Label>
-              <Slider max={1} step={0.1} min={0} />
+              <Slider
+                max={1}
+                step={0.1}
+                min={0}
+                value={[temperature]}
+                onValueChange={(value) => setTemperature(value[0])}
+              />
 
               <span className="block text-xs text-muted-foreground italic leading-relaxed">
                 Valores mais altos tendem a deixar o resultado mais criativo e
